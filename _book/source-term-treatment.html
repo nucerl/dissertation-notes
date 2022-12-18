@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Source Term Treatment | Dissertation Notes</title>
+<meta name="author" content="Erol Bicer">
+<meta name="description" content="The partial differential equations are converted into sets of algebraic equations through equation discretization that is usually in the form of equation (1) where \([A]\) is the sparse...">
+<meta name="generator" content="bookdown 0.31 with bs4_book()">
+<meta property="og:title" content="Source Term Treatment | Dissertation Notes">
+<meta property="og:type" content="book">
+<meta property="og:description" content="The partial differential equations are converted into sets of algebraic equations through equation discretization that is usually in the form of equation (1) where \([A]\) is the sparse...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Source Term Treatment | Dissertation Notes">
+<meta name="twitter:description" content="The partial differential equations are converted into sets of algebraic equations through equation discretization that is usually in the form of equation (1) where \([A]\) is the sparse...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Dissertation Notes</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">IATE</li>
+<li><a class="" href="literature-review.html">Literature Review</a></li>
+<li class="book-part">OpenFOAM</li>
+<li><a class="active" href="source-term-treatment.html">Source Term Treatment</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/nucerl/dissertation-notes">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="source-term-treatment" class="section level1 unnumbered">
+<h1>Source Term Treatment<a class="anchor" aria-label="anchor" href="#source-term-treatment"><i class="fas fa-link"></i></a>
+</h1>
+<p>The partial differential equations are converted into sets of algebraic equations through equation discretization that is usually in the form of equation <a href="source-term-treatment.html#eq:1">(1)</a> where <span class="math inline">\([A]\)</span> is the sparse coefficient matrix, <span class="math inline">\([x]\)</span> is the unknown column vector, and <span class="math inline">\([b]\)</span> is the source vector. The coefficients of the algebraic equations are stored in the <span class="math inline">\([A]\)</span> matrix through the <code>fvMatrix</code> template class after the discretization.</p>
+<p><span class="math display" id="eq:1">\[\begin{equation}
+  [A][x]=[b]
+  \tag{1}
+\end{equation}\]</span></p>
+<p>Source terms can be specified as Explicit, Implicit, and Implicit/Explicit (Hybrid hereinafter) through <code>Su()</code>, <code>Sp()</code>, and <code>SuSp()</code> functions, respectively, in OpenFOAM. These functions handle the incorporation of the source terms into the coefficient matrices and source term vectors. The Explicit treatment through <code>Su()</code> alters the coefficients in the source vector (i.e. <span class="math inline">\([b]\)</span>) while the Implicit treatment through <code>Sp()</code> modifies only the diagonal coefficients in the coefficient matrix (i.e. <span class="math inline">\([A]\)</span>). The Hybrid treatment automatically selects between the Implicit and Explicit treatment depending on the sign of the coefficients. The Implicit treatment is selected if the coefficients are greater than zero or the Explicit treatment is selected if the coefficients are less than zero. Though this sounds arbitrary, there is a good reason behind it which perhaps can best be explained with an example.</p>
+<p>Let’s look at the steady one-dimensional heat conduction example given in <span class="citation">[<a href="references.html#ref-patankar_2018_numerical" role="doc-biblioref">1</a>]</span> as given in equation <a href="source-term-treatment.html#eq:2">(2)</a> where <span class="math inline">\(k\)</span> is the thermal conductivity, <span class="math inline">\(T\)</span> is the temperature, and <span class="math inline">\(S\)</span> is the rate of heat generation per unit volume.</p>
+<p><span class="math display" id="eq:2">\[\begin{equation}
+\frac{d}{d x}\left(k \frac{d T}{d x}\right)+S=0
+\tag{2}
+\end{equation}\]</span></p>
+<p>The discretization of equation <a href="source-term-treatment.html#eq:2">(2)</a> can be done after utilizing the widely used grid-point notation where P is the central node, and E and W are the neighbors. More on the notation can be found at <span class="citation">[<a href="references.html#ref-patankar_2018_numerical" role="doc-biblioref">1</a>]</span>.</p>
+<p><span class="math display" id="eq:3">\[\begin{equation}
+\begin{aligned}
+\left(k \frac{d T}{d x}\right)_e-\left(k \frac{d T}{d x}\right)_w+\int_w^e S d x &amp;=0 \\
+\frac{k_e\left(T_E-T_P\right)}{(\delta x)_e}-\frac{k_w\left(T_P-T_W\right)}{(\delta x)_w}+\bar{S} \Delta x &amp;=0 \\
+\end{aligned}
+\tag{3}
+\end{equation}\]</span></p>
+<p>where;</p>
+<p><span class="math display" id="eq:4">\[\begin{equation}
+\bar{S}=S_C+S_P T_P
+\tag{4}
+\end{equation}\]</span></p>
+<p><span class="math inline">\(\bar{S}\)</span> is the average value of source therm over the control volume which is consisted of a constant <span class="math inline">\(S_C\)</span> and a coefficient <span class="math inline">\(S_P\)</span> of the dependent variable <span class="math inline">\(T_P\)</span>. It can be seen that the <span class="math inline">\(\bar{S}\)</span> is constructed as a linear source which will be discussed more in detail later. The discretized equation <a href="source-term-treatment.html#eq:3">(3)</a> can now be written in a more general format as shown in equation <a href="source-term-treatment.html#eq:5">(5)</a>.</p>
+<p><span class="math display" id="eq:5">\[\begin{equation}
+a_P T_P=a_E T_E+a_W T_W+b
+\tag{5}
+\end{equation}\]</span></p>
+<p>where;</p>
+<p><span class="math display" id="eq:6">\[\begin{equation}
+\begin{aligned}
+a_E &amp;=\frac{k_e}{(\delta x)_e} \\
+a_W &amp;=\frac{k_w}{(\delta x)_w} \\
+a_P &amp;=a_E+a_W - S_P\Delta x \\
+b &amp;=S_C\Delta x
+\end{aligned}
+\tag{6}
+\end{equation}\]</span></p>
+<p>It is known that in practical applications, the source could be dependent or independent of the dependent variable (i.e. <span class="math inline">\(T\)</span>) in the algebraic equation. This is the reason why the source is defined as it is in equation <a href="source-term-treatment.html#eq:4">(4)</a>. Because the discretized equations are linear, the source term can also only have a linear dependence. However, there could be sources that are nonlinear in certain applications. Therefore, a linearization must be done to be able to incorporate the source terms into the discretized equations. This is done by iterative procedures by splitting the <span class="math inline">\(S_C\)</span> and <span class="math inline">\(S_P\)</span> parts in an intuitive way. However, the details will not be discussed here. What we are trying to understand is how this source term is incorporated into the diagonal coefficient matrix and source vector. The reasoning lay in equation <a href="source-term-treatment.html#eq:6">(6)</a>.</p>
+<p>In <span class="citation">[<a href="references.html#ref-patankar_2018_numerical" role="doc-biblioref">1</a>]</span>, four basic rules were laid out to best represent the physics by the proposed procedure. Rule number 2 requires all positive coefficients meaning that the neighbors and the center-point coefficients must have the same sign. Rule number 3 is about the source term linearization. According to the rule, only a negative slope linearization is accepted. And the acceptance criterion is that the <span class="math inline">\(S_P\)</span> in equation <a href="source-term-treatment.html#eq:4">(4)</a> must be <strong>always negative or equal to zero</strong> when the source term is linearized. The reasoning can be seen in equation <a href="source-term-treatment.html#eq:6">(6)</a> that <span class="math inline">\(- S_P\Delta x\)</span> is added to the <span class="math inline">\(a_P\)</span> which constructs the diagonal terms of the matrix equation. Considering the diagonal dominance, which basically demands a positive (rule number 2) and large <span class="math inline">\(a_P\)</span>, it is possible to get negative values if <span class="math inline">\(S_P\)</span> is positive. Therefore, in order to ensure all positive (and large) diagonal coefficients, <span class="math inline">\(S_P\)</span> must be negative or equal to zero. As for the constant part (<span class="math inline">\(S_C\)</span>) of the source, it can be seen in <span class="math inline">\(b\)</span> in equation <a href="source-term-treatment.html#eq:6">(6)</a> that it is added to the source directly as it is.</p>
+<p>Considering the above explanation, now the source term treatment in OpenFOAM can be explained further. Due to the matrix operations in OpenFOAM, equation <a href="source-term-treatment.html#eq:1">(1)</a> is in fact constructed as shown in equation <a href="source-term-treatment.html#eq:7">(7)</a> by sending the source term to the left-hand side (LHS). This will be useful later once the individual source treatment functions are introduced.</p>
+<p><span class="math display" id="eq:7">\[\begin{equation}
+[A][x] + [-b] = 0
+\tag{7}
+\end{equation}\]</span></p>
+<p>It is now possible to investigate the coded source term treatment functions; <code>Su()</code>, <code>Sp()</code>, and <code>SuSp()</code> more in detail. The source codes and the header files of the functions can be found in the <code>~\src\finiteVolume\finiteVolume\fvm</code> directory with the names <code>fvmSup.C</code> and <code>fvmSup.H</code>. It should be noted that these functions can both be utilized for <code>finiteVolumeMethod</code> (fvm::) and <code>finiteVolumeCalculus</code> (fvc::) static functions however the explanation here is based on the <code>fvm::</code> one. These functions use two arguments, for instance, Su(<span class="math inline">\(\Phi\)</span>,<span class="math inline">\(x\)</span>). The first argument <span class="math inline">\(\Phi\)</span> is the field variable of the source term and <span class="math inline">\(x\)</span> is the dependent variable of the solved equation.</p>
+<ul>
+<li><strong>Explicit Source Tem Treatment, <code>Su()</code></strong></li>
+</ul>
+<p>The first one to explore is the Explicit treatment through the <code>Su()</code> function in OpenFOAM. Snippet #1 shows how the <code>Su()</code> is implemented. Looking at line 21 of Snippet #1, one can see that <code>su.field()</code> (the first argument in the function, i.e. <span class="math inline">\(\Phi\)</span>) is subtracted from the <code>fvm.source()</code> matrix which is the <span class="math inline">\([-b]\)</span> in equation <a href="source-term-treatment.html#eq:7">(7)</a>. This confirms that <code>Su()</code> is implemented in agreement with the theory.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="source-term-treatment.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="kw">template</span><span class="op">&lt;</span><span class="kw">class</span> Type<span class="op">&gt;</span></span>
+<span id="cb1-2"><a href="source-term-treatment.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   Foam<span class="op">::</span>tmp<span class="op">&lt;</span>Foam<span class="op">::</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span></span>
+<span id="cb1-3"><a href="source-term-treatment.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   Foam<span class="op">::</span>fvm<span class="op">::</span>Su</span>
+<span id="cb1-4"><a href="source-term-treatment.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="op">(</span></span>
+<span id="cb1-5"><a href="source-term-treatment.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="at">const</span> DimensionedField<span class="op">&lt;</span>Type<span class="op">,</span> volMesh<span class="op">&gt;&amp;</span> su<span class="op">,</span></span>
+<span id="cb1-6"><a href="source-term-treatment.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="at">const</span> GeometricField<span class="op">&lt;</span>Type<span class="op">,</span> fvPatchField<span class="op">,</span> volMesh<span class="op">&gt;&amp;</span> vf</span>
+<span id="cb1-7"><a href="source-term-treatment.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="op">)</span></span>
+<span id="cb1-8"><a href="source-term-treatment.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>   <span class="op">{</span></span>
+<span id="cb1-9"><a href="source-term-treatment.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="at">const</span> fvMesh<span class="op">&amp;</span> mesh <span class="op">=</span> vf<span class="op">.</span>mesh<span class="op">();</span></span>
+<span id="cb1-10"><a href="source-term-treatment.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  </span>
+<span id="cb1-11"><a href="source-term-treatment.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      tmp<span class="op">&lt;</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span> tfvm</span>
+<span id="cb1-12"><a href="source-term-treatment.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>      <span class="op">(</span></span>
+<span id="cb1-13"><a href="source-term-treatment.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span>          <span class="kw">new</span> fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;</span></span>
+<span id="cb1-14"><a href="source-term-treatment.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span>          <span class="op">(</span></span>
+<span id="cb1-15"><a href="source-term-treatment.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>              vf<span class="op">,</span></span>
+<span id="cb1-16"><a href="source-term-treatment.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>              dimVol<span class="op">*</span>su<span class="op">.</span>dimensions<span class="op">()</span></span>
+<span id="cb1-17"><a href="source-term-treatment.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>          <span class="op">)</span></span>
+<span id="cb1-18"><a href="source-term-treatment.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>      <span class="op">);</span></span>
+<span id="cb1-19"><a href="source-term-treatment.html#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>      fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&amp;</span> fvm <span class="op">=</span> tfvm<span class="op">.</span>ref<span class="op">();</span></span>
+<span id="cb1-20"><a href="source-term-treatment.html#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>  </span>
+<span id="cb1-21"><a href="source-term-treatment.html#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span>      fvm<span class="op">.</span>source<span class="op">()</span> <span class="op">-=</span> mesh<span class="op">.</span>V<span class="op">()*</span>su<span class="op">.</span>field<span class="op">();</span></span>
+<span id="cb1-22"><a href="source-term-treatment.html#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span>  </span>
+<span id="cb1-23"><a href="source-term-treatment.html#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span>      <span class="cf">return</span> tfvm<span class="op">;</span></span>
+<span id="cb1-24"><a href="source-term-treatment.html#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span>     <span class="op">}</span></span></code></pre></div>
+<p><em>Snippet #1: The explicit source term function, <code>Su()</code>, in OpenFOAM</em></p>
+<p><span class="math inline">\(\space\)</span></p>
+<ul>
+<li><strong>Implicit Source Tem Treatment, <code>Sp()</code></strong></li>
+</ul>
+<p>The next one to explore is the Implicit treatment through the <code>Sp()</code> function in OpenFOAM. Snippet #2 shows how the <code>Sp()</code> is implemented. Looking at line 21 of Snippet #2, one can see that <code>sp.field()</code> (the first argument in the function, i.e. <span class="math inline">\(\Phi\)</span>) is added to the <code>fvm.diag()</code> matrix which is the diagonal part of <span class="math inline">\([A]\)</span> in equation <a href="source-term-treatment.html#eq:7">(7)</a>. This confirms that <code>Sp()</code> is implemented in agreement with the theory.</p>
+<p>Another important difference between <code>Su()</code> and <code>Sp()</code>is the returned unit which the difference can be seen in line 16 of both Snippet #1 and #2. The reasoning can be seen in <a href="source-term-treatment.html#eq:4">(4)</a> and <a href="source-term-treatment.html#eq:7">(7)</a> where Sc is constant and Sp is multiplied by the dependent variable. So, this is reflected by multiplying the unit of the solved variable (the second argument in the functions, i.e. <span class="math inline">\(x\)</span>) through <code>vf.dimensions()</code> in line 16 of the Snippets.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="source-term-treatment.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="kw">template</span><span class="op">&lt;</span><span class="kw">class</span> Type<span class="op">&gt;</span></span>
+<span id="cb2-2"><a href="source-term-treatment.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   Foam<span class="op">::</span>tmp<span class="op">&lt;</span>Foam<span class="op">::</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span></span>
+<span id="cb2-3"><a href="source-term-treatment.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   Foam<span class="op">::</span>fvm<span class="op">::</span>Sp</span>
+<span id="cb2-4"><a href="source-term-treatment.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="op">(</span></span>
+<span id="cb2-5"><a href="source-term-treatment.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="at">const</span> volScalarField<span class="op">::</span>Internal<span class="op">&amp;</span> sp<span class="op">,</span></span>
+<span id="cb2-6"><a href="source-term-treatment.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="at">const</span> GeometricField<span class="op">&lt;</span>Type<span class="op">,</span> fvPatchField<span class="op">,</span> volMesh<span class="op">&gt;&amp;</span> vf</span>
+<span id="cb2-7"><a href="source-term-treatment.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="op">)</span></span>
+<span id="cb2-8"><a href="source-term-treatment.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>   <span class="op">{</span></span>
+<span id="cb2-9"><a href="source-term-treatment.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="at">const</span> fvMesh<span class="op">&amp;</span> mesh <span class="op">=</span> vf<span class="op">.</span>mesh<span class="op">();</span></span>
+<span id="cb2-10"><a href="source-term-treatment.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  </span>
+<span id="cb2-11"><a href="source-term-treatment.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      tmp<span class="op">&lt;</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span> tfvm</span>
+<span id="cb2-12"><a href="source-term-treatment.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>      <span class="op">(</span></span>
+<span id="cb2-13"><a href="source-term-treatment.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span>          <span class="kw">new</span> fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;</span></span>
+<span id="cb2-14"><a href="source-term-treatment.html#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span>          <span class="op">(</span></span>
+<span id="cb2-15"><a href="source-term-treatment.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>              vf<span class="op">,</span></span>
+<span id="cb2-16"><a href="source-term-treatment.html#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>              dimVol<span class="op">*</span>sp<span class="op">.</span>dimensions<span class="op">()*</span>vf<span class="op">.</span>dimensions<span class="op">()</span></span>
+<span id="cb2-17"><a href="source-term-treatment.html#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>          <span class="op">)</span></span>
+<span id="cb2-18"><a href="source-term-treatment.html#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>      <span class="op">);</span></span>
+<span id="cb2-19"><a href="source-term-treatment.html#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>      fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&amp;</span> fvm <span class="op">=</span> tfvm<span class="op">.</span>ref<span class="op">();</span></span>
+<span id="cb2-20"><a href="source-term-treatment.html#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>  </span>
+<span id="cb2-21"><a href="source-term-treatment.html#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span>      fvm<span class="op">.</span>diag<span class="op">()</span> <span class="op">+=</span> mesh<span class="op">.</span>V<span class="op">()*</span>sp<span class="op">.</span>field<span class="op">();</span></span>
+<span id="cb2-22"><a href="source-term-treatment.html#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span>  </span>
+<span id="cb2-23"><a href="source-term-treatment.html#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span>      <span class="cf">return</span> tfvm<span class="op">;</span></span>
+<span id="cb2-24"><a href="source-term-treatment.html#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span>  <span class="op">}</span></span></code></pre></div>
+<p><em>Snippet #2: The explicit source term function, <code>Sp()</code>, in OpenFOAM</em></p>
+<p><span class="math inline">\(\space\)</span></p>
+<ul>
+<li><strong>Hybrid Source Tem Treatment, <code>SuSp()</code></strong></li>
+</ul>
+<p>The last one to explore is the Hybrid treatment through the <code>SuSp()</code> function in OpenFOAM. Snippet #3 shows how the <code>SuSp()</code> is implemented. Looking at lines 21 through 24 of Snippet #3, one can see that <code>susp.field()</code> (the first argument in the function, i.e. <span class="math inline">\(\Phi\)</span>) is either subtracted from <code>fvm.source()</code> matrix which is the <span class="math inline">\([-b]\)</span> or added to the <code>fvm.diag()</code> matrix which is the diagonal part of <span class="math inline">\([A]\)</span> in equation <a href="source-term-treatment.html#eq:7">(7)</a>. This confirms that <code>SuSp()</code> is implemented in agreement with the theory.</p>
+<p>It would be useful to go through the selective logic in the code to understand how the code decides whether it is implicit or explicit. Let’s think of a positive <code>susp.field()</code> (the first argument in the function, i.e. <span class="math inline">\(\Phi\)</span>), first in line 21, the code compares it with scalar zero and selects the maximum. Since it’s positive, the <code>susp.field()</code> is selected and multiplied by the volume and added to the diagonal coefficient matrix. It continues to line 23, and compares a positive <code>susp.field()</code> with a scalar zero to select the minimum. Of course, zero is selected and then multiplied by volume. Therefore no changes are done to the source matrix. The reverse can also be thought for a negative <code>susp.field()</code>. This time zero is selected for the diagonal matrix hence no changes are made to it however a negative <code>susp.field()</code> is selected for the source matrix, multiplied with the dependent variable and subtracted from itself. So, in short, it can be said that if the first argument of the <code>SuSp()</code> function is positive the function directly changes the diagonals of the coefficient matrix, and if it is negative then it is multiplied with the independent variable, and changes the source coefficients.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="source-term-treatment.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="kw">template</span><span class="op">&lt;</span><span class="kw">class</span> Type<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="source-term-treatment.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   Foam<span class="op">::</span>tmp<span class="op">&lt;</span>Foam<span class="op">::</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span></span>
+<span id="cb3-3"><a href="source-term-treatment.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   Foam<span class="op">::</span>fvm<span class="op">::</span>SuSp</span>
+<span id="cb3-4"><a href="source-term-treatment.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="op">(</span></span>
+<span id="cb3-5"><a href="source-term-treatment.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="at">const</span> volScalarField<span class="op">::</span>Internal<span class="op">&amp;</span> susp<span class="op">,</span></span>
+<span id="cb3-6"><a href="source-term-treatment.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="at">const</span> GeometricField<span class="op">&lt;</span>Type<span class="op">,</span> fvPatchField<span class="op">,</span> volMesh<span class="op">&gt;&amp;</span> vf</span>
+<span id="cb3-7"><a href="source-term-treatment.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="op">)</span></span>
+<span id="cb3-8"><a href="source-term-treatment.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>   <span class="op">{</span></span>
+<span id="cb3-9"><a href="source-term-treatment.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="at">const</span> fvMesh<span class="op">&amp;</span> mesh <span class="op">=</span> vf<span class="op">.</span>mesh<span class="op">();</span></span>
+<span id="cb3-10"><a href="source-term-treatment.html#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  </span>
+<span id="cb3-11"><a href="source-term-treatment.html#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      tmp<span class="op">&lt;</span>fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&gt;</span> tfvm</span>
+<span id="cb3-12"><a href="source-term-treatment.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>      <span class="op">(</span></span>
+<span id="cb3-13"><a href="source-term-treatment.html#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span>          <span class="kw">new</span> fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;</span></span>
+<span id="cb3-14"><a href="source-term-treatment.html#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span>          <span class="op">(</span></span>
+<span id="cb3-15"><a href="source-term-treatment.html#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>              vf<span class="op">,</span></span>
+<span id="cb3-16"><a href="source-term-treatment.html#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>              dimVol<span class="op">*</span>susp<span class="op">.</span>dimensions<span class="op">()*</span>vf<span class="op">.</span>dimensions<span class="op">()</span></span>
+<span id="cb3-17"><a href="source-term-treatment.html#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>          <span class="op">)</span></span>
+<span id="cb3-18"><a href="source-term-treatment.html#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>      <span class="op">);</span></span>
+<span id="cb3-19"><a href="source-term-treatment.html#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>      fvMatrix<span class="op">&lt;</span>Type<span class="op">&gt;&amp;</span> fvm <span class="op">=</span> tfvm<span class="op">.</span>ref<span class="op">();</span></span>
+<span id="cb3-20"><a href="source-term-treatment.html#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>  </span>
+<span id="cb3-21"><a href="source-term-treatment.html#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span>      fvm<span class="op">.</span>diag<span class="op">()</span> <span class="op">+=</span> mesh<span class="op">.</span>V<span class="op">()*</span>max<span class="op">(</span>susp<span class="op">.</span>field<span class="op">(),</span> scalar<span class="op">(</span><span class="dv">0</span><span class="op">));</span></span>
+<span id="cb3-22"><a href="source-term-treatment.html#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span>  </span>
+<span id="cb3-23"><a href="source-term-treatment.html#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span>      fvm<span class="op">.</span>source<span class="op">()</span> <span class="op">-=</span> mesh<span class="op">.</span>V<span class="op">()*</span>min<span class="op">(</span>susp<span class="op">.</span>field<span class="op">(),</span> scalar<span class="op">(</span><span class="dv">0</span><span class="op">))</span></span>
+<span id="cb3-24"><a href="source-term-treatment.html#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span>          <span class="op">*</span>vf<span class="op">.</span>primitiveField<span class="op">();</span></span>
+<span id="cb3-25"><a href="source-term-treatment.html#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>  </span>
+<span id="cb3-26"><a href="source-term-treatment.html#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="dv">26</span>      <span class="cf">return</span> tfvm<span class="op">;</span></span>
+<span id="cb3-27"><a href="source-term-treatment.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span>  <span class="op">}</span></span></code></pre></div>
+<p><em>Snippet #3: The hybrid source term function, <code>SuSp()</code>, in OpenFOAM</em></p>
+
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="literature-review.html">Literature Review</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#source-term-treatment">Source Term Treatment</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/nucerl/dissertation-notes/blob/master/OpenFOAM.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/nucerl/dissertation-notes/edit/master/OpenFOAM.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Dissertation Notes</strong>" was written by Erol Bicer. It was last built on 2022-12-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
