@@ -17,4 +17,4 @@ github-repo: https://github.com/nucerl/dissertation-notes
 
 # Preface {-}
 
-My dissertation notes.
+My notes to be used in my dissertation.
