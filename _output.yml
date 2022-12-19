@@ -1,11 +1,17 @@
-bookdown::bs4_book:
+bookdown::gitbook:
   css: style.css
-  theme:
-    primary: "#ff0000"
-  repo: https://github.com/nucerl/dissertation-notes
-bookdown::pdf_book:
-  includes:
-    in_header: preamble.tex
-  latex_engine: xelatex
-  citation_package: natbib
-  keep_tex: yes
+  config:
+    toc:
+      before: |
+        <li><a href="./">DISSERTATION NOTES</a></li>
+      after: |
+        <li><a href="https://github.com/nucerl/dissertation-notes" target="blank">See in GitHub</a></li>
+    edit: https://github.com/nucerl/dissertation-notes/edit/main/%s
+    download: ["pdf", "epub"]
+#bookdown::pdf_book:
+#  includes:
+#    in_header: preamble.tex
+#  latex_engine: xelatex
+#  citation_package: natbib
+#  keep_tex: yes
+#bookdown::epub_book: default

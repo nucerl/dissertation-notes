@@ -1,6 +1,7 @@
 --- 
-title: "Dissertation Notes"
-author: "Erol Bicer"
+title: DISSERTATION NOTES
+author: Erol Biçer
+email: nucerl@snu.ac.kr
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -8,12 +9,12 @@ bibliography: [book.bib, references.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
-  My notes for my dissertation.
-biblio-style: apalike
-csl: journal-of-nuclear-cardiology.csl
-link-citations: true
+  My dissertation notes. 
+link-citations: yes
+csl: journal-of-nuclear-cardiology
+github-repo: https://github.com/nucerl/dissertation-notes
 ---
 
 # Preface {-}
 
-My landing page.
+My dissertation notes.
