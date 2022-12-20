@@ -15,6 +15,6 @@ csl: journal-of-nuclear-cardiology
 github-repo: https://github.com/nucerl/dissertation-notes
 ---
 
-# Preface {-}
+# Preface
 
 My notes to be used in my dissertation.
